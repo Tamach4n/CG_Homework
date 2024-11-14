@@ -15,7 +15,10 @@ Vertex::Vertex(const float* verts, unsigned int numVerts, const unsigned int* in
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(unsigned int), indices, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, 0);
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, reinterpret_cast<void*>(sizeof(float) * 2));
 }
 
 Vertex::Vertex(const float* verts, unsigned int numVerts)
@@ -33,7 +36,7 @@ Vertex::Vertex(const float* verts, unsigned int numVerts)
 }
 
 Vertex::Vertex(const std::vector<float>& verts, const std::vector<unsigned int>& indices)
-	: numVerts(static_cast<unsigned int>(verts.size() / 6)), numIndices(static_cast<unsigned int>(indices.size()))
+	: numVerts(static_cast<unsigned int>(verts.size() / 5)), numIndices(static_cast<unsigned int>(indices.size()))
 {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -47,10 +50,10 @@ Vertex::Vertex(const std::vector<float>& verts, const std::vector<unsigned int>&
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<unsigned int>(indices.size()) * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, 0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, 0);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6, reinterpret_cast<void*>(sizeof(float) * 3));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, reinterpret_cast<void*>(sizeof(float) * 2));
 }
 
 Vertex::Vertex(const std::vector<float>& verts)

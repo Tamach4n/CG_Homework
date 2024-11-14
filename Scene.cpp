@@ -18,11 +18,11 @@ bool Scene::initialize()
 	isDrag = false;
 	startPos = endPos = glm::vec2(0.f);
 
-	shapeList.push_back(Shape::createSquare(0.3f, { 0.0f, 0.0f }));
-	shapeList.push_back(Shape::createCircle(0.2f, 32, { -1.5f, 0.0f }));
+	shapeList.push_back(new Shape());
+	shapeList.back()->initTriangleBuffer();
 
 	glLineWidth(1.5f);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	return true;
 }
@@ -39,13 +39,15 @@ void Scene::initDragBuffer()
 
 void Scene::update(float elapsedTime)
 {
-
+	for (auto& shape : shapeList) {
+		shape->Update();
+	}
 }
 
 void Scene::draw()
 {
 	for (auto& shape : shapeList) {
-		shape->Draw(spriteShader->GetshaderProgram());
+		shape->Draw(spriteShader);
 	}
 
 	if (isDrag) {
@@ -186,16 +188,6 @@ void Scene::mouseMove(int x, int y)
 }
 void Scene::splitShape(std::shared_ptr<Shape> shape, glm::vec2 l1, glm::vec2 l2)
 {
-	auto splitShapes = shape->split(l1, l2);
-	if (!splitShapes) return;
-
-	// Find and remove original shape
-	auto it = std::find(shapeList.begin(), shapeList.end(), shape);
-	if (it != shapeList.end()) shapeList.erase(it);
-
-	// Add split shapes
-	shapeList.push_back(splitShapes->first);	
-	shapeList.push_back(splitShapes->second);
 }
 
 void Scene::setWindowSize(int winWidth, int winHeight)

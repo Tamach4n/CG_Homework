@@ -27,8 +27,8 @@ public:
 
 	virtual void init();
 	virtual void initBuffer();
-	static std::shared_ptr<Shape> createSquare(float size, glm::vec2 position);
-	static std::shared_ptr<Shape> createCircle(float radius, int segments, glm::vec2 position);
+	void initTriangleBuffer();
+	void initRectangleBuffer();
 
 	virtual void setActive(Shader* shader);
 	virtual void setPos(glm::vec2 v);
@@ -39,20 +39,18 @@ public:
 	virtual bool getBroken() const;
 	virtual void setBroken(bool st);
 
-	virtual std::optional<std::pair<glm::vec2, glm::vec2>> isCollide(glm::vec2 l1, glm::vec2 l2);
-	std::vector<glm::vec2> findLineIntersections(glm::vec2 l1, glm::vec2 l2) const;
-	std::optional<std::pair<std::shared_ptr<Shape>, std::shared_ptr<Shape>>> split(glm::vec2 l1, glm::vec2 l2);
+	//virtual std::optional<std::pair<glm::vec2, glm::vec2>> isCollide(glm::vec2 l1, glm::vec2 l2);
 
 	virtual void Update();
 
-	virtual void Draw(GLuint shaderProgram);
+	virtual void Draw(Shader* shaderProgram);
 
 protected:
 	Vertex* shapeVertex;
 
 	std::vector<glm::vec2> vertices;
 
-	virtual std::optional<glm::vec2> isCollideLineByLine(glm::vec2 p1Start, glm::vec2 p1End, glm::vec2 p2Start, glm::vec2 p2End) const;
+	//virtual std::optional<glm::vec2> isCollideLineByLine(glm::vec2 p1Start, glm::vec2 p1End, glm::vec2 p2Start, glm::vec2 p2End) const;
 	virtual float cross2D(glm::vec2 p1, glm::vec2 p2) const;
 
 	float size;

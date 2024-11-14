@@ -11,7 +11,7 @@ void SpecialFunc(int, int, int);
 void SpecialUpFunc(int, int, int);
 void MouseFunc(int, int, int, int);
 void MotionFunc(int, int);
-void TimerFunc(int);
+void TimerFunc();
 
 // 전역 변수
 constexpr int winWidth = 800, winHeight = 800;
@@ -60,7 +60,7 @@ int main(int argc, char** argv)
 
 		glutDisplayFunc(DisplayFunc);		// 출력 함수의 지정
 		glutReshapeFunc(ReshapeFunc);		// 화면 크기가 변경되었을 때....
-		glutTimerFunc(16, TimerFunc, 0);	// 16ms --> 초당 60번
+		glutIdleFunc(TimerFunc);	// 16ms --> 초당 60번
 
 		glutMainLoop(); // 이벤트 처리 시작
 	}
@@ -124,7 +124,7 @@ void MotionFunc(int x, int y)
 	g_scene.mouseMove(x, y);
 }
 
-void TimerFunc(int id)
+void TimerFunc()
 {
 	static int fps = 0;
 	// 지난 시각

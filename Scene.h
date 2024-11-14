@@ -49,7 +49,7 @@ private:
 	class Shader* dragShader;
 	class Vertex* dragVertex;
 
-	std::vector<std::shared_ptr<Shape>> shapeList;
+	std::vector<Shape*> shapeList;
 
 	bool loadShaders();
 

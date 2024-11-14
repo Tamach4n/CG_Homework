@@ -66,33 +66,27 @@ void Shape::initBuffer()
 	shapeVertex = new Vertex(vertexData);
 }
 
-std::shared_ptr<Shape> Shape::createSquare(float size, glm::vec2 position)
+void Shape::initTriangleBuffer()
 {
-	std::random_device rd;
 	std::uniform_real_distribution<float> urd(0.f, 1.f);
 
-	std::vector<float> squareVertices = {
-	   position.x - size / 2, position.y - size / 2, urd(rd), urd(rd), urd(rd),
-	   position.x + size / 2, position.y - size / 2, urd(rd), urd(rd), urd(rd),
-	   position.x + size / 2, position.y + size / 2, urd(rd), urd(rd), urd(rd),
-	   position.x - size / 2, position.y + size / 2, urd(rd), urd(rd), urd(rd)
+	float VAO[] = {
+		 0.5f,  0.5f,	color.x, color.y, color.z,
+		-0.5f, -0.5f,	color.x, color.y, color.z,
+		 0.5f, -0.5f, 	color.x, color.y, color.z
+	};
+	
+	unsigned int VBO[] = {
+		0, 1, 2
 	};
 
-	return std::make_shared<Shape>(squareVertices);
+	shapeVertex = new Vertex(VAO, 3, VBO, 3);
 }
 
-std::shared_ptr<Shape> Shape::createCircle(float radius, int segments, glm::vec2 position)
+void Shape::initRectangleBuffer()
 {
-	std::vector<glm::vec2> circleVertices;
 
-	for (int i = 0; i < segments; ++i) {
-		float angle = i * 2.0f * M_PI / segments;
-		circleVertices.push_back({ position.x + radius * cos(angle), position.y + radius * sin(angle) });
-	}
-
-	return std::make_shared<Shape>(circleVertices);
 }
-
 
 void Shape::setActive(Shader* shader)
 {
@@ -125,104 +119,18 @@ void Shape::setBroken(bool st)
 	isBroken = st;
 }
 
-std::optional<std::pair<glm::vec2, glm::vec2>> Shape::isCollide(glm::vec2 l1, glm::vec2 l2)
-{
-	glm::vec2 leftTop = glm::vec2{ -size, size } + pos;
-	glm::vec2 leftBottom = glm::vec2{ -size, -size } + pos;
-	glm::vec2 rightTop = glm::vec2{ size, size } + pos;
-	glm::vec2 rightBottom = glm::vec2{ size, -size } + pos;
-
-	std::vector<glm::vec2> intersections;
-
-	// 각 변과의 교차점을 찾아 벡터에 저장
-	if (auto intersection = isCollideLineByLine(l1, l2, leftTop, rightTop); intersection)
-		intersections.push_back(*intersection);
-
-	if (auto intersection = isCollideLineByLine(l1, l2, rightTop, rightBottom); intersection)
-		intersections.push_back(*intersection);
-
-	if (auto intersection = isCollideLineByLine(l1, l2, rightBottom, leftBottom); intersection)
-		intersections.push_back(*intersection);
-
-	if (auto intersection = isCollideLineByLine(l1, l2, leftBottom, leftTop); intersection)
-		intersections.push_back(*intersection);
-
-	// 교차점이 두 개 이상인 경우만 반환
-	if (intersections.size() >= 2) {
-		return std::make_pair(intersections[0], intersections[1]);
-	}
-
-	return std::nullopt; // 교차점이 없거나 하나일 경우 null 반환
-}
-
-std::vector<glm::vec2> Shape::findLineIntersections(glm::vec2 l1, glm::vec2 l2) const {
-	std::vector<glm::vec2> intersections;
-
-	for (size_t i = 0; i < vertices.size(); ++i) {
-		glm::vec2 edgeStart = vertices[i];
-		glm::vec2 edgeEnd = vertices[(i + 1) % vertices.size()];
-
-		if (auto intersection = isCollideLineByLine(l1, l2, edgeStart, edgeEnd); intersection) {
-			intersections.push_back(*intersection);
-		}
-	}
-
-	return intersections;
-}
-
-std::optional<std::pair<std::shared_ptr<Shape>, std::shared_ptr<Shape>>> Shape::split(glm::vec2 l1, glm::vec2 l2) {
-	// Similar logic as splitRectangle, modified to return Shape instances
-	auto intersections = findLineIntersections(l1, l2);
-	if (intersections.size() != 2) return std::nullopt;
-
-	std::vector<glm::vec2> poly1, poly2;
-	bool addToPoly1 = true;
-	for (const auto& vertex : vertices) {
-		(addToPoly1 ? poly1 : poly2).push_back(vertex);
-		if (vertex == intersections[0] || vertex == intersections[1]) {
-			addToPoly1 = !addToPoly1;
-		}
-	}
-
-	// Add intersections to each polygon
-	poly1.push_back(intersections[0]);
-	poly2.push_back(intersections[1]);
-
-	return std::make_pair(std::make_shared<Shape>(poly1), std::make_shared<Shape>(poly2));
-}
-
 void Shape::Update()
 {
-
+	std::cout << "Size: " << size << ", Pos:" << pos.x << ", " << pos.y << '/n';
 }
 
-void Shape::Draw(GLuint shaderProgram)
+void Shape::Draw(Shader* shaderProgram)
 {
 	shapeVertex->setActive();
+	shaderProgram->setUniform("pos", pos.x, pos.y);
 	glDrawArrays(GL_LINE_LOOP, 0, vertices.size());
 }
 
-std::optional<glm::vec2> Shape::isCollideLineByLine(glm::vec2 p1Start, glm::vec2 p1End, glm::vec2 p2Start, glm::vec2 p2End) const
-{
-	glm::vec2 d1 = p1End - p1Start;
-	glm::vec2 d2 = p2End - p2Start;
-	float crossD1D2 = cross2D(d1, d2);
-
-	if (crossD1D2 == 0.0f) {
-		return std::nullopt;
-	}
-
-	float t = cross2D(p2Start - p1Start, d2) / crossD1D2;
-	float u = cross2D(p2Start - p1Start, d1) / crossD1D2;
-
-	// t와 u가 0과 1 사이에 있을 때 두 선분이 실제로 교차함
-	if (t >= 0 && t <= 1 && u >= 0 && u <= 1) {
-		glm::vec2 intersection = p1Start + t * d1;
-		return intersection;
-	}
-
-	return std::nullopt;
-}
 
 float Shape::cross2D(glm::vec2 p1, glm::vec2 p2) const
 {
