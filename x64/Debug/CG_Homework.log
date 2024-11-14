@@ -1,0 +1,63 @@
+﻿  Shape.cpp
+C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(89,15): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(202,45): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(399,14): error C2672: 'std::construct_at': 일치하는 오버로드된 함수가 없습니다.
+  (소스 파일 'Shape.cpp'을(를) 컴파일하는 중)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(388,16):
+      '_Ty *std::construct_at(_Ty *const ,_Types ...) noexcept(<expr>)'일 수 있습니다.
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(399,14):
+          관련 제약 조건이 충족되지 않았습니다.
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,50):
+              'Shape::Shape': 모든 인수 형식을 변환할 수 있는 오버로드된 함수가 없습니다.
+                  C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(21,8):
+                  'Shape::Shape(const Shape &)'일 수 있습니다.
+                      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,50):
+                      'Shape::Shape(const Shape &)': 인수 1을(를) 'std::vector<float,std::allocator<float>>'에서 'const Shape &'(으)로 변환할 수 없습니다.
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,71):
+                          원인: 'std::vector<float,std::allocator<float>>'에서 'const Shape'(으)로 변환할 수 없습니다.
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,71):
+                          이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+                  C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(15,8):
+                  또는       'Shape::Shape(const std::vector<glm::vec2,std::allocator<glm::vec2>> &)'
+                      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,50):
+                      'Shape::Shape(const std::vector<glm::vec2,std::allocator<glm::vec2>> &)': 인수 1을(를) 'std::vector<float,std::allocator<float>>'에서 'const std::vector<glm::vec2,std::allocator<glm::vec2>> &'(으)로 변환할 수 없습니다.
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,71):
+                          원인: 'std::vector<float,std::allocator<float>>'에서 'const std::vector<glm::vec2,std::allocator<glm::vec2>>'(으)로 변환할 수 없습니다.
+                          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,71):
+                          이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+                  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(386,50):
+                  인수 목록 '(std::vector<float,std::allocator<float>>)'을(를) 일치시키는 동안
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(399,14):
+      템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+          C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(81,14):
+          컴파일되는 함수 템플릿 인스턴스화 'std::shared_ptr<Shape> std::make_shared<Shape,std::vector<float,std::allocator<float>>&>(std::vector<float,std::allocator<float>> &)'에 대한 참조를 확인하세요.
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\memory(2906,46):
+          컴파일되는 함수 템플릿 인스턴스화 'std::_Ref_count_obj2<Shape>::_Ref_count_obj2<std::vector<float,std::allocator<float>>&>(std::vector<float,std::allocator<float>> &)'에 대한 참조를 확인하세요.
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\memory(2095,18):
+          컴파일되는 함수 템플릿 인스턴스화 'void std::_Construct_in_place<_Ty,std::vector<float,std::allocator<float>>&>(_Ty &,std::vector<float,std::allocator<float>> &) noexcept(false)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=Shape
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,61): error C2665: 'Shape::Shape': 모든 인수 형식을 변환할 수 있는 오버로드된 함수가 없습니다.
+  (소스 파일 'Shape.cpp'을(를) 컴파일하는 중)
+      C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(21,8):
+      'Shape::Shape(const Shape &)'일 수 있습니다.
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,61):
+          'Shape::Shape(const Shape &)': 인수 1을(를) 'std::vector<float,std::allocator<float>>'에서 'const Shape &'(으)로 변환할 수 없습니다.
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,82):
+              원인: 'std::vector<float,std::allocator<float>>'에서 'const Shape'(으)로 변환할 수 없습니다.
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,82):
+              이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+      C:\Users\worl\source\repos\CG_Homework\CG_Homework\Shape.cpp(15,8):
+      또는       'Shape::Shape(const std::vector<glm::vec2,std::allocator<glm::vec2>> &)'
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,61):
+          'Shape::Shape(const std::vector<glm::vec2,std::allocator<glm::vec2>> &)': 인수 1을(를) 'std::vector<float,std::allocator<float>>'에서 'const std::vector<glm::vec2,std::allocator<glm::vec2>> &'(으)로 변환할 수 없습니다.
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,82):
+              원인: 'std::vector<float,std::allocator<float>>'에서 'const std::vector<glm::vec2,std::allocator<glm::vec2>>'(으)로 변환할 수 없습니다.
+              C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,82):
+              이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(403,61):
+      인수 목록 '(std::vector<float,std::allocator<float>>)'을(를) 일치시키는 동안
+  
